@@ -6,49 +6,51 @@ import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import string
-
 import nltk
+
+# Certifique-se de ter os pacotes NLTK e as stopwords em português baixados.
 nltk.download('punkt')
-
-import nltk
 nltk.download('stopwords')
+stop_words = set(stopwords.words('portuguese'))
 
 # Função para pré-processamento de texto
 def preprocess_text(text):
-    # Transforma o texto em maiúsculas
+     # Transforma o texto em Maiuscula
     text = text.upper()
-   
+    print("Texto em maiúsculas:", text)
+    
+    # Remove pontuações e caracteres especiais
+    text = ''.join([char for char in text if char not in string.punctuation])
+    print("Texto sem pontuações:", text)
+    
     # Remove números
     text = ''.join([char for char in text if not char.isdigit()])
+    print("Texto sem números:", text)
    
-    # # Remove pontuações
-    # text = ''.join([char for char in text if char not in string.punctuation])
-   
-    # # # Tokenização e remoção de stop words
-    tokens = word_tokenize(text)
-    filtered_tokens = [word for word in tokens if word not in stopwords.words('portuguese')]
-
-   
-    # # Reconstroi o texto após o pré-processamento
+    # Tokenização e remoção de stop words
+    tokens = word_tokenize(text, language='portuguese')
+    filtered_tokens = [word for word in tokens if word not in stop_words]
+    print("Tokens após remoção de stop words:", filtered_tokens)
+    # Reconstroi o texto após o pré-processamento
     text = ' '.join(filtered_tokens)
-   
+    print("Texto após reconstituição:", text)
     return text
 
-# Carregue o arquivo CSV com colunas A e B (substitua 'nome_do_arquivo.csv' pelo nome do seu arquivo CSV)
-df = pd.read_csv('dadosreclamacao.csv', delimiter='\t')
+# Carregue o arquivo CSV com colunas 'Assunto' e 'Problema' (substitua 'nome_do_arquivo.csv' pelo nome do seu arquivo CSV)
+df = pd.read_csv('Dados Consumidor Reclamações Mercado Livre.csv', sep=';')
 
 # Renomeie as colunas para 'descricao' e 'reclamacao' (opcional)
-df.columns = ['reclamacao']
+df.columns = ['assunto', 'problema']
 
 # Visualize o DataFrame
 print(df)
 
-# Aplica o pré-processamento à coluna "reclamacao"
-df['reclamacao_tratada'] = df['reclamacao'].apply(preprocess_text)
+# Aplica o pré-processamento à coluna 'problema'
+df['problema_tratado'] = df['problema'].apply(preprocess_text)
 
 # Cria o vetor TF-IDF
 tfidf_vectorizer = TfidfVectorizer()
-tfidf_matrix = tfidf_vectorizer.fit_transform(df['reclamacao_tratada'])
+tfidf_matrix = tfidf_vectorizer.fit_transform(df['problema_tratado'])
 
 # Encontre o número ideal de clusters usando o método do cotovelo
 wcss = []
@@ -79,7 +81,7 @@ df_tsne = pd.DataFrame({'tsne_x': tsne_result[:, 0], 'tsne_y': tsne_result[:, 1]
 # Plota o gráfico t-SNE
 plt.figure(figsize=(10, 8))
 plt.scatter(df_tsne['tsne_x'], df_tsne['tsne_y'], c=df_tsne['cluster'], cmap='viridis')
-plt.title ('Gráfico t-SNE com Clusters')
+plt.title('Gráfico t-SNE com Clusters')
 plt.xlabel('t-SNE Dimensão 1')
 plt.ylabel('t-SNE Dimensão 2')
 plt.colorbar()
