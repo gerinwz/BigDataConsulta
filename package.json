@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@wppconnect-team/wppconnect": "^1.28.0",
+    "@wppconnect-team/wppconnect": "^1.28.2",
     "puppeteer": "^21.5.0"
   }
 }
