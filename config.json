@@ -1,0 +1,8 @@
+{
+    "session": "whatsbot",
+    "autoClose": false,
+    "puppeteerOptions": {
+        "args": ["--no-sandbox"]
+    },
+    "authToken": "876ads876d7a9s8d0a9s8dahigggh"
+}
