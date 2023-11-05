@@ -25,11 +25,12 @@ def preprocess_text(text):
     # text = ''.join([char for char in text if char not in string.punctuation])
    
     # # # Tokenização e remoção de stop words
-    # tokens = word_tokenize(text)
-    # filtered_tokens = [word for word in tokens if word not in stopwords.words('portuguese')]
+    tokens = word_tokenize(text)
+    filtered_tokens = [word for word in tokens if word not in stopwords.words('portuguese')]
+
    
     # # Reconstroi o texto após o pré-processamento
-    # text = ' '.join(filtered_tokens)
+    text = ' '.join(filtered_tokens)
    
     return text
 
