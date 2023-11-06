@@ -54,13 +54,14 @@ tfidf_matrix = tfidf_vectorizer.fit_transform(df['problema_tratado'])
 
 # Encontre o número ideal de clusters usando o método do cotovelo
 wcss = []
-for i in range(1, 11):
+max_clusters = 69
+for i in range(1, max_clusters + 1):
     kmeans = KMeans(n_clusters=i, init='k-means++', max_iter=300, n_init=10, random_state=0)
     kmeans.fit(tfidf_matrix)
     wcss.append(kmeans.inertia_)
 
 # Plot do gráfico do método do cotovelo
-plt.plot(range(1, 11), wcss)
+plt.plot(range(1, max_clusters + 1), wcss)
 plt.title('Método do Cotovelo')
 plt.xlabel('Número de clusters')
 plt.ylabel('WCSS (Soma dos Quadrados das Distâncias)')
