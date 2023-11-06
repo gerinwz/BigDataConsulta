@@ -67,6 +67,7 @@ plt.title('Número Ideal de Categorias para Mensagens')
 plt.xlabel('Número de Categorias (Clusters)')
 plt.ylabel('Variabilidade Dentro dos Clusters')
 plt.grid()
+plt.savefig('Figure_1.png')  # Salva o primeiro gráfico como Figure_1.png
 plt.show()
 
 # Executa o K-Means com o número ideal de clusters
@@ -89,5 +90,5 @@ plt.xlabel('Forma 1 das Mensagens')
 plt.ylabel('Forma 2 das Mensagens')
 plt.colorbar(scatter, label='Categorias')
 plt.legend(title='Legenda de Categorias')
+plt.savefig('Figure_2.png')  # Salva o segundo gráfico como Figure_2.png
 plt.show()
-
