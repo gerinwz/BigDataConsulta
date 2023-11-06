@@ -60,11 +60,13 @@ for i in range(1, max_clusters + 1):
     kmeans.fit(tfidf_matrix)
     wcss.append(kmeans.inertia_)
 
-# Plot do gráfico do método do cotovelo
-plt.plot(range(1, max_clusters + 1), wcss)
-plt.title('Método do Cotovelo')
-plt.xlabel('Número de clusters')
-plt.ylabel('WCSS (Soma dos Quadrados das Distâncias)')
+# Plot do gráfico do Método do Cotovelo
+plt.figure(figsize=(10, 5))
+plt.plot(range(1, max_clusters + 1), wcss, marker='o', linestyle='-', color='b')
+plt.title('Número Ideal de Categorias para Mensagens')
+plt.xlabel('Número de Categorias (Clusters)')
+plt.ylabel('Variabilidade Dentro dos Clusters')
+plt.grid()
 plt.show()
 
 # Executa o K-Means com o número ideal de clusters
@@ -79,11 +81,13 @@ tsne_result = tsne.fit_transform(tfidf_matrix)
 # Cria um DataFrame para o t-SNE
 df_tsne = pd.DataFrame({'tsne_x': tsne_result[:, 0], 'tsne_y': tsne_result[:, 1], 'cluster': df['cluster']})
 
-# Plota o gráfico t-SNE
+# Plota o gráfico t-SNE com Clusters
 plt.figure(figsize=(10, 8))
-plt.scatter(df_tsne['tsne_x'], df_tsne['tsne_y'], c=df_tsne['cluster'], cmap='viridis')
-plt.title('Gráfico t-SNE com Clusters')
-plt.xlabel('t-SNE Dimensão 1')
-plt.ylabel('t-SNE Dimensão 2')
-plt.colorbar()
+scatter = plt.scatter(df_tsne['tsne_x'], df_tsne['tsne_y'], c=df_tsne['cluster'], cmap='viridis')
+plt.title('Agrupando Mensagens em Categorias')
+plt.xlabel('Forma 1 das Mensagens')
+plt.ylabel('Forma 2 das Mensagens')
+plt.colorbar(scatter, label='Categorias')
+plt.legend(title='Legenda de Categorias')
 plt.show()
+
