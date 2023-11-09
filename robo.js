@@ -52,6 +52,7 @@ async function main() {
           await client.sendFile(message.from, siteImagePath, "Site.png");
           await client.sendFile(message.from, "Figure_1.png", "Figure_1.png");
           await client.sendFile(message.from, "Figure_2.png", "Figure_2.png");
+          await client.sendFile(message.from, "wordcloud.png", "wordcloud.png");
 
           waitingForProduct = false; // Retorna ao estado de espera
         }
