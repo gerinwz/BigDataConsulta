@@ -8,6 +8,9 @@ from nltk.tokenize import word_tokenize
 import string
 import nltk
 from wordcloud import WordCloud
+import plotly.express as px
+from wordcloud import WordCloud, STOPWORDS
+import matplotlib.pyplot as plt
 
 # Certifique-se de ter os pacotes NLTK e as stopwords em português baixados.
 nltk.download("punkt")
@@ -76,11 +79,12 @@ plt.savefig("Figure_1.png")  # Salva o primeiro gráfico como Figure_1.png
 plt.show()
 
 # Executa o K-Means com o número ideal de clusters
-num_clusters = 7
+num_clusters = 9
 kmeans = KMeans(
     n_clusters=num_clusters, init="k-means++", max_iter=300, n_init=10, random_state=0
 )
 df["cluster"] = kmeans.fit_predict(tfidf_matrix)
+df["cluster"] = df["cluster"].astype(str)
 
 # Reduz a dimensionalidade usando t-SNE
 tsne = TSNE(n_components=2, random_state=0, init="random")
@@ -91,29 +95,73 @@ df_tsne = pd.DataFrame(
     {"tsne_x": tsne_result[:, 0], "tsne_y": tsne_result[:, 1], "cluster": df["cluster"]}
 )
 
-# Plota o gráfico t-SNE com Clusters
-plt.figure(figsize=(10, 8))
-scatter = plt.scatter(
-    df_tsne["tsne_x"], df_tsne["tsne_y"], c=df_tsne["cluster"], cmap="viridis"
+# Criação do gráfico t-SNE com Clusters usando Plotly
+fig = px.scatter(
+    df_tsne,
+    x="tsne_x",
+    y="tsne_y",
+    color="cluster",
+    title="Agrupando Mensagens em Categorias (t-SNE)",
+    labels={"tsne_x": "Forma 1 das Mensagens", "tsne_y": "Forma 2 das Mensagens"},
+    color_continuous_scale="viridis",
 )
-plt.title("Agrupando Mensagens em Categorias")
-plt.xlabel("Forma 1 das Mensagens")
-plt.ylabel("Forma 2 das Mensagens")
-plt.colorbar(scatter, label="Categorias")
-plt.legend(title="Legenda de Categorias")
-plt.savefig("Figure_2.png")  # Salva o segundo gráfico como Figure_2.png
-plt.show()
 
-# Combine todo o texto de todos os clusters
-combined_text = " ".join(df["problema_tratado"])
+# Personalização do layout
+fig.update_layout(
+    xaxis_title="Forma 1 das Mensagens",
+    yaxis_title="Forma 2 das Mensagens",
+    coloraxis_colorbar_title="Categorias",
+    legend_title="Legenda de Categorias",
+)
 
-# Crie uma única nuvem de palavras com o texto combinado
-wordcloud = WordCloud(background_color="white").generate(combined_text)
+# Salva o gráfico como um arquivo HTML
+fig.write_html("tsne_clusters_plot.html")
 
-# Exiba a nuvem de palavras
-plt.figure(figsize=(6, 4))
-plt.imshow(wordcloud, interpolation="bilinear")
-plt.title("Palavras Mais Ditas nas Reclamações")
-plt.savefig("wordcloud.png", bbox_inches="tight")
-plt.axis("off")
-plt.show()
+# # Plota o gráfico t-SNE com Clusters
+# plt.figure(figsize=(10, 8))
+# scatter = plt.scatter(
+#     df_tsne["tsne_x"], df_tsne["tsne_y"], c=df_tsne["cluster"], cmap="viridis"
+# )
+# plt.title("Agrupando Mensagens em Categorias")
+# plt.xlabel("Forma 1 das Mensagens")
+# plt.ylabel("Forma 2 das Mensagens")
+# plt.colorbar(scatter, label="Categorias")
+# plt.legend(title="Legenda de Categorias")
+# plt.savefig("Figure_2.png")  # Salva o segundo gráfico como Figure_2.png
+# plt.show()
+
+# # Combine todo o texto de todos os clusters
+# combined_text = " ".join(df["problema_tratado"])
+
+# # Crie uma única nuvem de palavras com o texto combinado
+# wordcloud = WordCloud(background_color="white").generate(combined_text)
+
+# # Exiba a nuvem de palavras
+# plt.figure(figsize=(6, 4))
+# plt.imshow(wordcloud, interpolation="bilinear")
+# plt.title("Palavras Mais Ditas nas Reclamações")
+# plt.savefig("wordcloud.png", bbox_inches="tight")
+# plt.axis("off")
+# plt.show()
+
+# Crie uma nuvem de palavras para cada cluster
+for cluster_label in df["cluster"].unique():
+    # Filtra o DataFrame para obter apenas as linhas do cluster atual
+    cluster_df = df[df["cluster"] == cluster_label]
+
+    # Combine o texto do cluster
+    cluster_combined_text = " ".join(cluster_df["problema_tratado"])
+
+    # Crie uma nuvem de palavras para o texto combinado do cluster
+    wordcloud = WordCloud(background_color="white").generate(cluster_combined_text)
+
+    # Exiba a nuvem de palavras
+    plt.figure(figsize=(6, 4))
+    plt.imshow(wordcloud, interpolation="bilinear")
+    plt.title(f"Wordcloud - Cluster {cluster_label}")
+    plt.savefig(f"wordcloud_cluster_{cluster_label}.png", bbox_inches="tight")
+    plt.axis("off")
+    plt.show()
+
+    cluster_0 = df[df["cluster"] == "0"]
+    cluster_0.to_excel("cluster_0.xlsx")
