@@ -135,11 +135,12 @@ fig.update_layout(
     legend_title="Legenda de Categorias",
 )
 
+# Salva o gráfico como um arquivo PNG
+fig.write_image("plot.png")
+
 # Salva o gráfico como um arquivo HTML
 html_file_path = "tsne_clusters_plot.html"
 fig.write_html("tsne_clusters_plot.html")
-# Salva o gráfico como um arquivo PNG
-fig.write_image("plot.png")
 
 # Exibe a imagem
 Image(filename="plot.png")
