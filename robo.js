@@ -1,6 +1,20 @@
 // Importa as bibliotecas necessárias
 const wppconnect = require("@wppconnect-team/wppconnect");
 const puppeteer = require("puppeteer");
+const fs = require("fs/promises");
+
+//Função para ler o arquivo TXT
+async function sendTextFileContent(client, chatId, filePath) {
+  try {
+    //ler conteudo do arquivo
+    const fileContent = await fs.readFile(filePath, "utf8");
+    // ENviar conteudo do arquivo como msg
+    await client.sendText(chatId, fileContent);
+    console.log(`Arquivo ${filePath} enviado com sucesso!`);
+  } catch (error) {
+    console.log(`Erro ao enviar mensagem: ${error}`);
+  }
+}
 
 // Função para criar a sessão do WhatsApp
 async function createWhatsAppSession() {
@@ -53,6 +67,11 @@ async function main() {
           await client.sendFile(message.from, "Figure_1.png", "Figure_1.png");
           await client.sendFile(message.from, "Figure_2.png", "Figure_2.png");
           await client.sendFile(message.from, "wordcloud.png", "wordcloud.png");
+          await sendTextFileContent(
+            client,
+            message.from,
+            "caminho/do/arquivo.txt"
+          );
 
           waitingForProduct = false; // Retorna ao estado de espera
         }
