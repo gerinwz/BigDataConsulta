@@ -1,15 +1,45 @@
-2023/11/05-21:19:49.690 8403 Reusing MANIFEST /Users/rogerinwz/Library/Mobile Documents/com~apple~CloudDocs/BigDataConsulta/tokens/whatsbot/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2023/11/05-21:19:49.690 8403 Recovering log #68
-2023/11/05-21:19:49.692 8403 Reusing old log /Users/rogerinwz/Library/Mobile Documents/com~apple~CloudDocs/BigDataConsulta/tokens/whatsbot/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000068.log 
-2023/11/05-21:19:59.971 a603 Level-0 table #75: started
-2023/11/05-21:19:59.977 a603 Level-0 table #75: 78678 bytes OK
-2023/11/05-21:19:59.986 a603 Delete type=0 #68
-2023/11/05-21:19:59.989 a603 Manual compaction at level-0 from '\x00\x1c\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1d\x00\x00\x00' @ 0 : 0; will stop at (end)
-2023/11/05-21:20:00.121 8403 Compacting 1@1 + 2@2 files
-2023/11/05-21:20:00.157 8403 Generated table #76@1: 39618 keys, 2210692 bytes
-2023/11/05-21:20:00.168 8403 Generated table #77@1: 13198 keys, 351178 bytes
-2023/11/05-21:20:00.168 8403 Compacted 1@1 + 2@2 files => 2561870 bytes
-2023/11/05-21:20:00.180 8403 compacted to: files[ 0 0 2 0 0 0 0 ]
-2023/11/05-21:20:00.180 8403 Delete type=2 #75
-2023/11/05-21:20:00.180 8403 Delete type=2 #71
-2023/11/05-21:20:00.180 8403 Delete type=2 #72
+2023/11/12-19:01:20.495 8903 Reusing MANIFEST /Users/rogerinwz/Documents/GitHub/BigDataConsulta/tokens/whatsbot/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/11/12-19:01:20.495 8903 Recovering log #79
+2023/11/12-19:01:20.506 8903 Reusing old log /Users/rogerinwz/Documents/GitHub/BigDataConsulta/tokens/whatsbot/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000079.log 
+2023/11/12-19:01:30.767 8503 Level-0 table #85: started
+2023/11/12-19:01:30.784 8503 Level-0 table #85: 1087420 bytes OK
+2023/11/12-19:01:30.793 8503 Delete type=0 #79
+2023/11/12-19:01:30.793 8503 Manual compaction at level-0 from '\x00\x1e\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x1f\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/11/12-19:01:30.879 8903 Compacting 1@1 + 2@2 files
+2023/11/12-19:01:30.925 8903 Generated table #86@1: 42550 keys, 2219281 bytes
+2023/11/12-19:01:30.941 8903 Generated table #87@1: 15530 keys, 662082 bytes
+2023/11/12-19:01:30.941 8903 Compacted 1@1 + 2@2 files => 2881363 bytes
+2023/11/12-19:01:30.951 8903 compacted to: files[ 0 0 2 0 0 0 0 ]
+2023/11/12-19:01:30.951 8903 Delete type=2 #81
+2023/11/12-19:01:30.951 8903 Delete type=2 #82
+2023/11/12-19:01:30.952 8903 Delete type=2 #85
+2023/11/12-19:02:01.126 8903 Level-0 table #89: started
+2023/11/12-19:02:01.185 8903 Level-0 table #89: 1198693 bytes OK
+2023/11/12-19:02:01.195 8903 Delete type=0 #84
+2023/11/12-19:02:01.203 8903 Compacting 1@1 + 2@2 files
+2023/11/12-19:02:01.353 8903 Generated table #90@1: 46795 keys, 2231280 bytes
+2023/11/12-19:02:01.401 8903 Generated table #91@1: 16383 keys, 622399 bytes
+2023/11/12-19:02:01.401 8903 Compacted 1@1 + 2@2 files => 2853679 bytes
+2023/11/12-19:02:01.410 8903 compacted to: files[ 0 0 2 0 0 0 0 ]
+2023/11/12-19:02:01.411 8903 Delete type=2 #89
+2023/11/12-19:02:01.412 8903 Delete type=2 #86
+2023/11/12-19:02:01.412 8903 Delete type=2 #87
+2023/11/12-19:02:52.958 aa03 Level-0 table #93: started
+2023/11/12-19:02:52.981 aa03 Level-0 table #93: 1192275 bytes OK
+2023/11/12-19:02:52.988 aa03 Delete type=0 #88
+2023/11/12-19:03:05.148 aa03 Compacting 1@1 + 2@2 files
+2023/11/12-19:03:05.211 aa03 Generated table #94@1: 46696 keys, 2226300 bytes
+2023/11/12-19:03:05.230 aa03 Generated table #95@1: 19979 keys, 805345 bytes
+2023/11/12-19:03:05.230 aa03 Compacted 1@1 + 2@2 files => 3031645 bytes
+2023/11/12-19:03:05.238 aa03 compacted to: files[ 0 0 2 0 0 0 0 ]
+2023/11/12-19:03:05.238 aa03 Delete type=2 #93
+2023/11/12-19:03:05.238 aa03 Delete type=2 #91
+2023/11/12-19:03:05.238 aa03 Delete type=2 #90
+2023/11/12-19:04:18.125 aa03 Level-0 table #97: started
+2023/11/12-19:04:18.174 aa03 Level-0 table #97: 954867 bytes OK
+2023/11/12-19:04:18.183 aa03 Delete type=0 #92
+2023/11/12-19:04:18.208 aa03 Compacting 1@1 + 2@2 files
+2023/11/12-19:04:18.334 aa03 Generated table #98@1: 46840 keys, 2226341 bytes
+2023/11/12-19:04:18.394 aa03 Generated table #99@1: 20639 keys, 841376 bytes
+2023/11/12-19:04:18.394 aa03 Compacted 1@1 + 2@2 files => 3067717 bytes
+2023/11/12-19:04:18.403 aa03 compacted to: files[ 0 0 2 0 0 0 0 ]
