@@ -169,11 +169,11 @@ for cluster_label in df["cluster"].unique():
     plt.axis("off")
     plt.show()
 
-#     # Salva o DataFrame do cluster em um arquivo Excel
-#     excel_file_name = f"cluster_{cluster_label}.xlsx"
-#     cluster_df.to_excel(excel_file_name, index=False)
+    # Salva o DataFrame do cluster em um arquivo Excel
+    excel_file_name = f"cluster_{cluster_label}.xlsx"
+    cluster_df.to_excel(excel_file_name, index=False)
 
-# clusterLabel = pd.read_excel(f"cluster_{cluster_label}.xlsx")
+clusterLabel = pd.read_excel(f"cluster_{cluster_label}.xlsx")
 
 # # Selecione apenas a terceira coluna e segunda linha
 # selected_text = clusterLabel.iloc[1, 2]

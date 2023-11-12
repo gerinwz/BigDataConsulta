@@ -75,8 +75,8 @@ async function main() {
           );
           await client.sendFile(
             message.from,
-            "wordcloud_cluster.png",
-            "wordcloud_cluster.png"
+            "wordcloud_cluster_0.png",
+            "wordcloud_cluster_0.png"
           );
 
           waitingForProduct = false; // Retorna ao estado de espera
