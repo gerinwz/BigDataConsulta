@@ -63,20 +63,19 @@ async function main() {
           const figure2ImagePath = "tsne_clusters_plot.html"; // Caminho para o arquivo Figure_2.png
 
           // Envia as três imagens separadamente ao usuário
+          await sendTextFileContent(client, message.from, "cluster_0.txt");
+          await client.sendFile(message.from, siteImagePath, "Site.png");
+          await client.sendFile(message.from, "Figure_1.png", "Figure_1.png");
           await client.sendFile(
             message.from,
             "tsne_clusters_plot.html",
             "tsne_clusters_plot.html"
           );
-          await client.sendFile(message.from, siteImagePath, "Site.png");
-          await client.sendFile(message.from, "Figure_1.png", "Figure_1.png");
-
           await client.sendFile(
             message.from,
             "wordcloud_cluster.png",
             "wordcloud_cluster.png"
           );
-          await sendTextFileContent(client, message.from, "cluster_0.txt");
 
           waitingForProduct = false; // Retorna ao estado de espera
         }
