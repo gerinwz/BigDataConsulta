@@ -1,3 +1,4 @@
+import openai
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
@@ -10,14 +11,12 @@ import nltk
 from wordcloud import WordCloud
 import plotly.express as px
 from wordcloud import WordCloud, STOPWORDS
-import matplotlib.pyplot as plt
 import webbrowser
 
 # Certifique-se de ter os pacotes NLTK e as stopwords em português baixados.
 nltk.download("punkt")
 nltk.download("stopwords")
 stop_words = set(stopwords.words("portuguese"))
-
 
 # Função para pré-processamento de texto
 def preprocess_text(text):
@@ -42,6 +41,15 @@ def preprocess_text(text):
     print("Texto após reconstituição:", text)
     return text
 
+# Função para obter resposta do modelo GPT-3.5
+def get_gpt3_response(prompt):
+    openai.api_key = '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'
+    params = {
+        'prompt': prompt,
+        'max_tokens': 100
+    }
+    response = openai.Completion.create(**params)
+    return response['choices'][0]['text']
 
 # Carregue o arquivo CSV com colunas 'Assunto' e 'Problema' (substitua 'nome_do_arquivo.csv' pelo nome do seu arquivo CSV)
 df = pd.read_csv("Dados Consumidor Reclamações Mercado Livre.csv", sep=";")
@@ -130,32 +138,9 @@ for cluster_label in df["cluster"].unique():
     # Combine o texto do cluster
     cluster_combined_text = " ".join(cluster_df["problema_tratado"])
 
-    # Crie uma nuvem de palavras para o texto combinado do cluster
-    wordcloud = WordCloud(background_color="white").generate(cluster_combined_text)
+    # Gera resposta GPT-3.5 para o texto combinado do cluster
+    gpt3_response = get_gpt3_response(cluster_combined_text)
 
-    # Exiba a nuvem de palavras
-    plt.figure(figsize=(6, 4))
-    plt.imshow(wordcloud, interpolation="bilinear")
-    plt.title(f"Wordcloud - Cluster {cluster_label}")
-    plt.savefig(f"wordcloud_cluster_{cluster_label}.png", bbox_inches="tight")
-    plt.axis("off")
-    plt.show()
-
-    cluster_0 = df[df["cluster"] == "0"]
-    cluster_0.to_excel("cluster_0.xlsx")
-    cluster_1 = df[df["cluster"] == "1"]
-    cluster_1.to_excel("cluster_1.xlsx")
-    cluster_2 = df[df["cluster"] == "2"]
-    cluster_2.to_excel("cluster_2.xlsx")
-    cluster_3 = df[df["cluster"] == "3"]
-    cluster_3.to_excel("cluster_3.xlsx")
-    cluster_4 = df[df["cluster"] == "4"]
-    cluster_4.to_excel("cluster_4.xlsx")
-    cluster_5 = df[df["cluster"] == "5"]
-    cluster_5.to_excel("cluster_5.xlsx")
-    cluster_6 = df[df["cluster"] == "6"]
-    cluster_6.to_excel("cluster_6.xlsx")
-    cluster_7 = df[df["cluster"] == "7"]
-    cluster_7.to_excel("cluster_7.xlsx")
-    cluster_8 = df[df["cluster"] == "8"]
-    cluster_8.to_excel("cluster_8.xlsx")
+    # Salva a resposta GPT-3.5 em um arquivo de texto
+    with open(f"gpt3_response_cluster_{cluster_label}.txt", "w") as file:
+        file.write(gpt3_response)
