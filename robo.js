@@ -60,12 +60,14 @@ async function main() {
           // Realiza a análise do site e envia as três imagens separadamente
           const siteImagePath = await analyzeWebsite(siteName, client);
           const figure1ImagePath = "Figure_1.png"; // Caminho para o arquivo Figure_1.png
-          const figure2ImagePath = "tsne_clusters_plot.html"; // Caminho para o arquivo Figure_2.png
+          const figure2ImagePath = "plot.png"; // Caminho para o arquivo Figure_2.png
+          const figure3ImagePath = "tsne_clusters_plot.html"; // Caminho para o arquivo HTML
 
           // Envia as três imagens separadamente ao usuário
           await sendTextFileContent(client, message.from, "cluster_0.txt");
           await client.sendFile(message.from, siteImagePath, "Site.png");
           await client.sendFile(message.from, "Figure_1.png", "Figure_1.png");
+          await client.sendFile(message.from, "plot.png", "plot.png");
           await client.sendFile(
             message.from,
             "tsne_clusters_plot.html",
