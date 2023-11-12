@@ -143,19 +143,19 @@ for cluster_label in df["cluster"].unique():
 
     cluster_0 = df[df["cluster"] == "0"]
     cluster_0.to_excel("cluster_0.xlsx")
-    cluster_0 = df[df["cluster"] == "1"]
-    cluster_0.to_excel("cluster_1.xlsx")
-    cluster_0 = df[df["cluster"] == "2"]
-    cluster_0.to_excel("cluster_2.xlsx")
-    cluster_0 = df[df["cluster"] == "3"]
-    cluster_0.to_excel("cluster_3.xlsx")
-    cluster_0 = df[df["cluster"] == "4"]
-    cluster_0.to_excel("cluster_4.xlsx")
-    cluster_0 = df[df["cluster"] == "5"]
-    cluster_0.to_excel("cluster_5.xlsx")
-    cluster_0 = df[df["cluster"] == "6"]
-    cluster_0.to_excel("cluster_6.xlsx")
-    cluster_0 = df[df["cluster"] == "7"]
-    cluster_0.to_excel("cluster_7.xlsx")
-    cluster_0 = df[df["cluster"] == "8"]
-    cluster_0.to_excel("cluster_8.xlsx")
+    cluster_1 = df[df["cluster"] == "1"]
+    cluster_1.to_excel("cluster_1.xlsx")
+    cluster_2 = df[df["cluster"] == "2"]
+    cluster_2.to_excel("cluster_2.xlsx")
+    cluster_3 = df[df["cluster"] == "3"]
+    cluster_3.to_excel("cluster_3.xlsx")
+    cluster_4 = df[df["cluster"] == "4"]
+    cluster_4.to_excel("cluster_4.xlsx")
+    cluster_5 = df[df["cluster"] == "5"]
+    cluster_5.to_excel("cluster_5.xlsx")
+    cluster_6 = df[df["cluster"] == "6"]
+    cluster_6.to_excel("cluster_6.xlsx")
+    cluster_7 = df[df["cluster"] == "7"]
+    cluster_7.to_excel("cluster_7.xlsx")
+    cluster_8 = df[df["cluster"] == "8"]
+    cluster_8.to_excel("cluster_8.xlsx")
