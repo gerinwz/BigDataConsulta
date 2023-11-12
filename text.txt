@@ -1,0 +1,28 @@
+const puppeteer = require ('puppeteer');
+
+const urlalvo = 'https://www.amazon.com.br/?brref=icp_contry_us';
+
+(async () => {
+    const browser = await puppeteer.lauch({
+        headless:false,
+        defautViewport:null,
+    });
+    const page = await browser.newPage();
+
+    await page.goto(urlalvo);
+    await page.waitForSelector('#twotabsearchtextbox');
+    await page.type('#twotabsearchtextbox','gta v xbox');
+    await page.keyboard.press('Enter');
+
+    await page.waitForTimeout(2000);
+    await page.waitForSelector('.a-price-whole');
+
+    let vlrpreco = '';
+    const valor = await page.evaluate(()=>{
+        let centena = document.querySelector('.a-price-whole');
+        if (centena !=null) {
+            let centena = 
+        }
+    })
+
+})
