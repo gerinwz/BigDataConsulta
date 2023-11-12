@@ -18,6 +18,7 @@ nltk.download("punkt")
 nltk.download("stopwords")
 stop_words = set(stopwords.words("portuguese"))
 
+
 # Função para pré-processamento de texto
 def preprocess_text(text):
     # Transforma o texto em Maiuscula
@@ -41,15 +42,24 @@ def preprocess_text(text):
     print("Texto após reconstituição:", text)
     return text
 
+
 # Função para obter resposta do modelo GPT-3.5
-def get_gpt3_response(prompt):
-    openai.api_key = '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'
-    params = {
-        'prompt': prompt,
-        'max_tokens': 100
-    }
-    response = openai.Completion.create(**params)
-    return response['choices'][0]['text']
+def generate_succinct_text_with_chatgpt(prompt):
+    openai.api_key = "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"
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=100,
+        temperature=0.7,
+        top_p=1.0,
+        frequency_penalty=0.5,
+        presence_penalty=0.0,
+    )
+
+    text = response["choices"][0]["text"]
+
+    return text
+
 
 # Carregue o arquivo CSV com colunas 'Assunto' e 'Problema' (substitua 'nome_do_arquivo.csv' pelo nome do seu arquivo CSV)
 df = pd.read_csv("Dados Consumidor Reclamações Mercado Livre.csv", sep=";")
@@ -136,11 +146,33 @@ for cluster_label in df["cluster"].unique():
     cluster_df = df[df["cluster"] == cluster_label]
 
     # Combine o texto do cluster
-    cluster_combined_text = " ".join(cluster_df["problema_tratado"])
+    cluster_combined_text = "Elabore um texto com o texto enviado sendo que o mesmo são palavras mais ditas em reclamações no Reclame Aqui.".join(
+        cluster_df["problema_tratado"]
+    )
 
-    # Gera resposta GPT-3.5 para o texto combinado do cluster
-    gpt3_response = get_gpt3_response(cluster_combined_text)
+    # Crie uma nuvem de palavras para o texto combinado do cluster
+    wordcloud = WordCloud(background_color="white").generate(cluster_combined_text)
 
-    # Salva a resposta GPT-3.5 em um arquivo de texto
-    with open(f"gpt3_response_cluster_{cluster_label}.txt", "w") as file:
-        file.write(gpt3_response)
+    # Exiba a nuvem de palavras
+    plt.figure(figsize=(6, 4))
+    plt.imshow(wordcloud, interpolation="bilinear")
+    plt.title(f"Wordcloud - Cluster {cluster_label}")
+    plt.savefig(f"wordcloud_cluster_{cluster_label}.png", bbox_inches="tight")
+    plt.axis("off")
+    plt.show()
+
+    # Salva o DataFrame do cluster em um arquivo Excel
+    excel_file_name = f"cluster_{cluster_label}.xlsx"
+    cluster_df.to_excel(excel_file_name, index=False)
+
+clusterLabel = pd.read_excel(f"cluster_{cluster_label}.xlsx")
+
+# Selecione apenas a terceira coluna e segunda linha
+selected_text = clusterLabel.iloc[1, 2]
+
+succinct_text = generate_succinct_text_with_chatgpt(
+    prompt=f"Faca um texto sucinto falando sobre o problema encontrados '{selected_text}'"
+)
+
+with open("succinct_text.txt", "w") as f:
+    f.write(succinct_text)
