@@ -11,8 +11,8 @@ from wordcloud import WordCloud
 import plotly.express as px
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
-import webbrowser
-import openai
+import matplotlib.pyplot as plt
+from IPython.display import Image
 
 # Certifique-se de ter os pacotes NLTK e as stopwords em português baixados.
 nltk.download("punkt")
@@ -116,12 +116,14 @@ fig.update_layout(
     legend_title="Legenda de Categorias",
 )
 
-# Salva o gráfico como um arquivo HTML
-html_file_path = "tsne_clusters_plot.html"
-fig.write_html("tsne_clusters_plot.html")
+# Salva o gráfico como um arquivo PNG
+fig.write_image("plot.png")
 
-# Abre o arquivo HTML no navegador padrão
-webbrowser.open(html_file_path)
+# Exibe a imagem
+Image(filename="plot.png")
+
+# # Abre o arquivo HTML no navegador padrão
+# webbrowser.open(html_file_path)
 
 # Crie uma nuvem de palavras para cada cluster
 for cluster_label in df["cluster"].unique():

@@ -172,8 +172,8 @@ async function analyzeWebsite(siteName, client) {
     try {
       await page.goto(urlAlvo);
 
-      await page.waitForSelector('a[aria-label="allow cookies"].cc-btn');
-      await page.click('a[aria-label="allow cookies"].cc-btn');
+      await page.waitForSelector(".cc-btn.cc-allow.cc-btn-format");
+      await page.click(".cc-btn.cc-allow.cc-btn-format");
     } catch (error) {
       console.error(
         'Não foi possível encontrar o botão "Aceitar todos os cookies".',
