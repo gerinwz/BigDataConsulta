@@ -1,3 +1,4 @@
+import openai
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
@@ -10,9 +11,7 @@ import nltk
 from wordcloud import WordCloud
 import plotly.express as px
 from wordcloud import WordCloud, STOPWORDS
-import matplotlib.pyplot as plt
 import webbrowser
-import openai
 
 # Certifique-se de ter os pacotes NLTK e as stopwords em português baixados.
 nltk.download("punkt")
@@ -41,6 +40,24 @@ def preprocess_text(text):
     # Reconstroi o texto após o pré-processamento
     text = " ".join(filtered_tokens)
     print("Texto após reconstituição:", text)
+    return text
+
+
+# Função para obter resposta do modelo GPT-3.5
+def generate_succinct_text_with_chatgpt(prompt):
+    openai.api_key = "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"
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=100,
+        temperature=0.7,
+        top_p=1.0,
+        frequency_penalty=0.5,
+        presence_penalty=0.0,
+    )
+
+    text = response["choices"][0]["text"]
+
     return text
 
 
@@ -129,7 +146,9 @@ for cluster_label in df["cluster"].unique():
     cluster_df = df[df["cluster"] == cluster_label]
 
     # Combine o texto do cluster
-    cluster_combined_text = " ".join(cluster_df["problema_tratado"])
+    cluster_combined_text = "Elabore um texto com o texto enviado sendo que o mesmo são palavras mais ditas em reclamações no Reclame Aqui.".join(
+        cluster_df["problema_tratado"]
+    )
 
     # Crie uma nuvem de palavras para o texto combinado do cluster
     wordcloud = WordCloud(background_color="white").generate(cluster_combined_text)
@@ -142,22 +161,18 @@ for cluster_label in df["cluster"].unique():
     plt.axis("off")
     plt.show()
 
-    cluster_0 = df[df["cluster"] == "0"]
-    cluster_0.to_excel("cluster_0.xlsx")
-    cluster_1 = df[df["cluster"] == "1"]
-    cluster_1.to_excel("cluster_1.xlsx")
-    cluster_2 = df[df["cluster"] == "2"]
-    cluster_2.to_excel("cluster_2.xlsx")
-    cluster_3 = df[df["cluster"] == "3"]
-    cluster_3.to_excel("cluster_3.xlsx")
-    cluster_4 = df[df["cluster"] == "4"]
-    cluster_4.to_excel("cluster_4.xlsx")
-    cluster_5 = df[df["cluster"] == "5"]
-    cluster_5.to_excel("cluster_5.xlsx")
-    cluster_6 = df[df["cluster"] == "6"]
-    cluster_6.to_excel("cluster_6.xlsx")
-    cluster_7 = df[df["cluster"] == "7"]
-    cluster_7.to_excel("cluster_7.xlsx")
-    cluster_8 = df[df["cluster"] == "8"]
-    cluster_8.to_excel("cluster_8.xlsx")
+    # Salva o DataFrame do cluster em um arquivo Excel
+    excel_file_name = f"cluster_{cluster_label}.xlsx"
+    cluster_df.to_excel(excel_file_name, index=False)
 
+clusterLabel = pd.read_excel(f"cluster_{cluster_label}.xlsx")
+
+# Selecione apenas a terceira coluna e segunda linha
+selected_text = clusterLabel.iloc[1, 2]
+
+succinct_text = generate_succinct_text_with_chatgpt(
+    prompt=f"Faca um texto sucinto falando sobre o problema encontrados '{selected_text}'"
+)
+
+with open("succinct_text.txt", "w") as f:
+    f.write(succinct_text)
