@@ -11,6 +11,7 @@ from wordcloud import WordCloud
 import plotly.express as px
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
+import webbrowser
 
 # Certifique-se de ter os pacotes NLTK e as stopwords em português baixados.
 nltk.download("punkt")
@@ -115,34 +116,11 @@ fig.update_layout(
 )
 
 # Salva o gráfico como um arquivo HTML
+html_file_path = "tsne_clusters_plot.html"
 fig.write_html("tsne_clusters_plot.html")
 
-# # Plota o gráfico t-SNE com Clusters
-# plt.figure(figsize=(10, 8))
-# scatter = plt.scatter(
-#     df_tsne["tsne_x"], df_tsne["tsne_y"], c=df_tsne["cluster"], cmap="viridis"
-# )
-# plt.title("Agrupando Mensagens em Categorias")
-# plt.xlabel("Forma 1 das Mensagens")
-# plt.ylabel("Forma 2 das Mensagens")
-# plt.colorbar(scatter, label="Categorias")
-# plt.legend(title="Legenda de Categorias")
-# plt.savefig("Figure_2.png")  # Salva o segundo gráfico como Figure_2.png
-# plt.show()
-
-# # Combine todo o texto de todos os clusters
-# combined_text = " ".join(df["problema_tratado"])
-
-# # Crie uma única nuvem de palavras com o texto combinado
-# wordcloud = WordCloud(background_color="white").generate(combined_text)
-
-# # Exiba a nuvem de palavras
-# plt.figure(figsize=(6, 4))
-# plt.imshow(wordcloud, interpolation="bilinear")
-# plt.title("Palavras Mais Ditas nas Reclamações")
-# plt.savefig("wordcloud.png", bbox_inches="tight")
-# plt.axis("off")
-# plt.show()
+# Abre o arquivo HTML no navegador padrão
+webbrowser.open(html_file_path)
 
 # Crie uma nuvem de palavras para cada cluster
 for cluster_label in df["cluster"].unique():
@@ -165,3 +143,19 @@ for cluster_label in df["cluster"].unique():
 
     cluster_0 = df[df["cluster"] == "0"]
     cluster_0.to_excel("cluster_0.xlsx")
+    cluster_0 = df[df["cluster"] == "1"]
+    cluster_0.to_excel("cluster_1.xlsx")
+    cluster_0 = df[df["cluster"] == "2"]
+    cluster_0.to_excel("cluster_2.xlsx")
+    cluster_0 = df[df["cluster"] == "3"]
+    cluster_0.to_excel("cluster_3.xlsx")
+    cluster_0 = df[df["cluster"] == "4"]
+    cluster_0.to_excel("cluster_4.xlsx")
+    cluster_0 = df[df["cluster"] == "5"]
+    cluster_0.to_excel("cluster_5.xlsx")
+    cluster_0 = df[df["cluster"] == "6"]
+    cluster_0.to_excel("cluster_6.xlsx")
+    cluster_0 = df[df["cluster"] == "7"]
+    cluster_0.to_excel("cluster_7.xlsx")
+    cluster_0 = df[df["cluster"] == "8"]
+    cluster_0.to_excel("cluster_8.xlsx")
