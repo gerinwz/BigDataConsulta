@@ -13,7 +13,8 @@ import plotly.express as px
 from wordcloud import WordCloud, STOPWORDS
 import webbrowser
 import matplotlib.pyplot as plt
-from IPython.display import Image
+
+# from IPython.display import Image
 
 # Certifique-se de ter os pacotes NLTK e as stopwords em português baixados.
 nltk.download("punkt")
@@ -143,7 +144,7 @@ html_file_path = "tsne_clusters_plot.html"
 fig.write_html("tsne_clusters_plot.html")
 
 # Exibe a imagem
-Image(filename="plot.png")
+# Image(filename="plot.png")
 # Abre o arquivo HTML no navegador padrão
 webbrowser.open(html_file_path)
 
@@ -168,18 +169,18 @@ for cluster_label in df["cluster"].unique():
     plt.axis("off")
     plt.show()
 
-    # Salva o DataFrame do cluster em um arquivo Excel
-    excel_file_name = f"cluster_{cluster_label}.xlsx"
-    cluster_df.to_excel(excel_file_name, index=False)
+#     # Salva o DataFrame do cluster em um arquivo Excel
+#     excel_file_name = f"cluster_{cluster_label}.xlsx"
+#     cluster_df.to_excel(excel_file_name, index=False)
 
-clusterLabel = pd.read_excel(f"cluster_{cluster_label}.xlsx")
+# clusterLabel = pd.read_excel(f"cluster_{cluster_label}.xlsx")
 
-# Selecione apenas a terceira coluna e segunda linha
-selected_text = clusterLabel.iloc[1, 2]
+# # Selecione apenas a terceira coluna e segunda linha
+# selected_text = clusterLabel.iloc[1, 2]
 
-succinct_text = generate_succinct_text_with_chatgpt(
-    prompt=f"Faca um texto sucinto falando sobre o problema encontrados '{selected_text}'"
-)
+# succinct_text = generate_succinct_text_with_chatgpt(
+#     prompt=f"Faca um texto sucinto falando sobre o problema encontrados '{selected_text}'"
+# )
 
-with open("succinct_text.txt", "w") as f:
-    f.write(succinct_text)
+# with open("succinct_text.txt", "w") as f:
+#     f.write(succinct_text)
