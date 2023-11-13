@@ -57,27 +57,31 @@ async function main() {
           // Se não for uma URL válida, envia uma mensagem de URL inválida
           await sendInvalidURLMessage(client, message.from);
         } else {
-          // Realiza a análise do site e envia as três imagens separadamente
-          const siteImagePath = await analyzeWebsite(siteName, client);
-          const figure1ImagePath = "Figure_1.png"; // Caminho para o arquivo Figure_1.png
-          const figure2ImagePath = "plot.png"; // Caminho para o arquivo Figure_2.png
-          const figure3ImagePath = "tsne_clusters_plot.html"; // Caminho para o arquivo HTML
+          // Envie os arquivos de texto e imagem para os clusters de 0 a 8
+          for (let i = 0; i <= 8; i++) {
+            const clusterTextFileName = `cluster_${i}.txt`;
+            const wordcloudFileName = `wordcloud_cluster_${i}.png`;
 
-          // Envia as três imagens separadamente ao usuário
-          await sendTextFileContent(client, message.from, "cluster_0.txt");
+            // Envie o arquivo de texto
+            await sendTextFileContent(
+              client,
+              message.from,
+              clusterTextFileName
+            );
+
+            // Envie o arquivo de imagem
+            await client.sendFile(
+              message.from,
+              wordcloudFileName,
+              wordcloudFileName
+            );
+          }
+
+          // Envie as imagens gerais após os clusters
+          const siteImagePath = await analyzeWebsite(siteName, client);
           await client.sendFile(message.from, siteImagePath, "Site.png");
           await client.sendFile(message.from, "Figure_1.png", "Figure_1.png");
           await client.sendFile(message.from, "plot.png", "plot.png");
-          await client.sendFile(
-            message.from,
-            "tsne_clusters_plot.html",
-            "tsne_clusters_plot.html"
-          );
-          await client.sendFile(
-            message.from,
-            "wordcloud_cluster_0.png",
-            "wordcloud_cluster_0.png"
-          );
 
           waitingForProduct = false; // Retorna ao estado de espera
         }
