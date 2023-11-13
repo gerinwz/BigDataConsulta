@@ -1,1 +1,2 @@
-6.
+6. *Produto Entregue Incompleto, Diferente do Pedido, Danificado:*
+   Houve casos em que os produtos entregues não correspondiam ao pedido, estavam incompletos ou chegaram danificados, gerando insatisfação.
